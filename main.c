@@ -85,7 +85,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  uint8_t KEY = 0;
+  uint8_t oldKey = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -95,13 +96,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  sw = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
-	     if(sw==GPIO_PIN_SET){
-	       while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) != GPIO_PIN_RESET){
-	       HAL_Delay(10); //
+	  KEY = !HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
+
+	      if((KEY != oldKey) && KEY){ // if KEY pressed
+	        __asm volatile("NOP"); //__NOP;
+	        HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 	      }
-	      HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-	     }
+	      oldKey = KEY;
+
+	      HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
