@@ -99,9 +99,12 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  Button = HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0);
 	  if(Button==GPIO_PIN_SET){
-		  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+		  // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		  HAL_Delay(200);
 	  } else {
-		  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+		  HAL_Delay(1000);
 	  }
   }
   /* USER CODE END 3 */
