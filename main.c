@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -86,7 +85,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int Button = 0 ;
 
   /* USER CODE END 2 */
 
@@ -97,15 +95,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  Button = HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0);
-	  if(Button==GPIO_PIN_SET){
-		  // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-		  HAL_Delay(200);
-	  } else {
-		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-		  HAL_Delay(1000);
-	  }
+	  sw = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
+	     if(sw==GPIO_PIN_SET){
+	       while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) != GPIO_PIN_RESET){
+	       HAL_Delay(10); //
+	      }
+	      HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+	     }
   }
   /* USER CODE END 3 */
 }
